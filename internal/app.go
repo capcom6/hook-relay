@@ -3,6 +3,9 @@ package internal
 import (
 	"context"
 
+	"github.com/capcom6/hook-relay/internal/config"
+	"github.com/capcom6/hook-relay/internal/server"
+	"github.com/go-core-fx/fiberfx"
 	"github.com/go-core-fx/logger"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
@@ -19,6 +22,9 @@ func Run() {
 func module() fx.Option {
 	return fx.Module(
 		"app",
+		config.Module(),
+		fiberfx.Module(),
+		server.Module(),
 		fx.Invoke(func(lc fx.Lifecycle, logger *zap.Logger) {
 			lc.Append(fx.Hook{
 				OnStart: func(_ context.Context) error {
