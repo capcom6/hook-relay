@@ -4,7 +4,7 @@ go 1.24.3
 
 require (
 	github.com/go-core-fx/bunfx v0.0.0-20251031040508-389b5f369517
-	github.com/go-core-fx/config v0.0.0-20251027105846-1eb00d0ec829
+	github.com/go-core-fx/config v0.0.0-20251031132330-11530b4fe00f
 	github.com/go-core-fx/fiberfx v0.0.0-20251029093854-b15b9343f207
 	github.com/go-core-fx/logger v0.0.1
 	github.com/go-core-fx/sqlfx v0.0.0-20251029094726-6d45ff8e7ac3
@@ -36,7 +36,7 @@ require (
 	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/klauspost/compress v1.18.1 // indirect
 	github.com/knadh/koanf/maps v0.1.2 // indirect
-	github.com/knadh/koanf/parsers/dotenv v1.1.0 // indirect
+	github.com/knadh/koanf/parsers/dotenv v1.1.1 // indirect
 	github.com/knadh/koanf/parsers/yaml v1.1.0 // indirect
 	github.com/knadh/koanf/providers/env/v2 v2.0.0 // indirect
 	github.com/knadh/koanf/providers/file v1.2.0 // indirect
@@ -55,7 +55,7 @@ require (
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	go.uber.org/dig v1.19.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	go.yaml.in/yaml/v3 v3.0.3 // indirect
+	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/crypto v0.43.0 // indirect
 	golang.org/x/mod v0.28.0 // indirect
 	golang.org/x/sys v0.37.0 // indirect
