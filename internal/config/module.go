@@ -2,9 +2,11 @@ package config
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/capcom6/hook-relay/internal/server"
 	"github.com/go-core-fx/config"
+	"github.com/go-core-fx/sqlfx"
 	"go.uber.org/fx"
 )
 
@@ -25,6 +27,15 @@ func Module() fx.Option {
 				Address:     c.Server.Address,
 				ProxyHeader: c.Server.ProxyHeader,
 				Proxies:     c.Server.Proxies,
+			}
+		}),
+		fx.Provide(func(c Config) sqlfx.Config {
+			return sqlfx.Config{
+				URL:             c.Database.URL,
+				ConnMaxIdleTime: time.Duration(c.Database.ConnMaxIdleTime),
+				ConnMaxLifetime: time.Duration(c.Database.ConnMaxLifetime),
+				MaxOpenConns:    c.Database.MaxOpenConns,
+				MaxIdleConns:    c.Database.MaxIdleConns,
 			}
 		}),
 	)

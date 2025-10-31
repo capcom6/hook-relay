@@ -1,7 +1,10 @@
 package config
 
+import "github.com/go-core-fx/config"
+
 type Config struct {
-	Server Server `koanf:"server"`
+	Server   Server   `koanf:"server"`
+	Database Database `koanf:"database"`
 }
 
 type Server struct {
@@ -10,12 +13,28 @@ type Server struct {
 	Proxies     []string `koanf:"proxies"`
 }
 
+type Database struct {
+	URL string `koanf:"url"`
+
+	ConnMaxIdleTime config.Duration `koanf:"conn_max_idle_time"`
+	ConnMaxLifetime config.Duration `koanf:"conn_max_lifetime"`
+	MaxOpenConns    int             `koanf:"max_open_conns"`
+	MaxIdleConns    int             `koanf:"max_idle_conns"`
+}
+
 func Default() Config {
 	return Config{
 		Server: Server{
 			Address:     "127.0.0.1:3000",
 			ProxyHeader: "X-Forwarded-For",
 			Proxies:     []string{},
+		},
+		Database: Database{
+			URL:             "mysql://hook-relay:hook-relay@127.0.0.1:3306/hook-relay?charset=utf8mb4,utf8&parseTime=true",
+			ConnMaxIdleTime: 0,
+			ConnMaxLifetime: 0,
+			MaxOpenConns:    0,
+			MaxIdleConns:    0,
 		},
 	}
 }

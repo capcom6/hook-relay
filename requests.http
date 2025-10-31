@@ -2,3 +2,23 @@
 
 ###
 GET {{baseUrl}} HTTP/1.1
+
+###
+POST {{baseUrl}}/subscriptions HTTP/1.1
+Content-Type: application/json
+
+{
+    "uuid": "a69d9b2e-496d-4f91-99cd-d155d98bd015",
+    "url": "https://example.com/{{$randomInt 0 100}}",
+    "secret": "s",
+    "events": ["invoice.created"]
+}
+
+###
+GET {{baseUrl}}/subscriptions?uuid=a69d9b2e-496d-4f91-99cd-d155d98bd015 HTTP/1.1
+
+###
+GET {{baseUrl}}/subscriptions/1 HTTP/1.1
+
+###
+DELETE {{baseUrl}}/subscriptions/1 HTTP/1.1
