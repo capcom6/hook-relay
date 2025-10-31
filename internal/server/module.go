@@ -1,6 +1,7 @@
 package server
 
 import (
+	"github.com/capcom6/hook-relay/internal/server/api/subscriptions"
 	"github.com/go-core-fx/fiberfx"
 	"github.com/go-core-fx/fiberfx/statuscode"
 	"github.com/go-core-fx/logger"
@@ -22,7 +23,13 @@ func Module() fx.Option {
 		fx.Provide(func() fiberfx.Options {
 			return fiberfx.Options{}
 		}),
-		fx.Invoke(func(app *fiber.App) error {
+		fx.Provide(
+			subscriptions.NewHandler,
+			fx.Private,
+		),
+		fx.Invoke(func(app *fiber.App, subscriptions *subscriptions.Handler) error {
+			subscriptions.Register(app.Group("/subscriptions"))
+
 			app.Use(statuscode.New())
 			return nil
 		}),
