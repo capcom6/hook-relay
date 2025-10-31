@@ -3,7 +3,7 @@ package privacy
 type HiddenString string
 
 func (s HiddenString) String() string {
-	return "hidden"
+	return "***"
 }
 
 func (s HiddenString) MarshalJSON() ([]byte, error) {
