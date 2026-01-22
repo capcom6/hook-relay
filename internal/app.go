@@ -9,6 +9,7 @@ import (
 	"github.com/capcom6/hook-relay/internal/subscriptions"
 	"github.com/go-core-fx/bunfx"
 	"github.com/go-core-fx/fiberfx"
+	"github.com/go-core-fx/goosefx"
 	"github.com/go-core-fx/logger"
 	"github.com/go-core-fx/sqlfx"
 	"github.com/go-core-fx/validator"
@@ -18,23 +19,23 @@ import (
 
 func Run() {
 	fx.New(
+		// CORE MODULES
 		logger.Module(),
 		logger.WithFxDefaultLogger(),
-		fiberfx.Module(),
 		sqlfx.Module(),
+		goosefx.Module(),
 		bunfx.Module(),
+		fiberfx.Module(),
 		validator.Module(),
-		module(),
-	).Run()
-}
-
-func module() fx.Option {
-	return fx.Module(
-		"app",
+		//
+		// APP MODULES
 		config.Module(),
 		server.Module(),
 		db.Module(),
+		//
+		// BUSINESS MODULES
 		subscriptions.Module(),
+		//
 		fx.Invoke(func(lc fx.Lifecycle, logger *zap.Logger) {
 			lc.Append(fx.Hook{
 				OnStart: func(_ context.Context) error {
@@ -47,5 +48,5 @@ func module() fx.Option {
 				},
 			})
 		}),
-	)
+	).Run()
 }

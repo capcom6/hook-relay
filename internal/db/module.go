@@ -1,7 +1,10 @@
 package db
 
 import (
+	"github.com/capcom6/hook-relay/internal/db/migrations"
+	"github.com/go-core-fx/goosefx"
 	"github.com/go-core-fx/logger"
+	"github.com/pressly/goose/v3"
 	"github.com/uptrace/bun/dialect/mysqldialect"
 	"github.com/uptrace/bun/schema"
 	"go.uber.org/fx"
@@ -15,6 +18,12 @@ func Module() fx.Option {
 		logger.WithNamedLogger("db"),
 		fx.Provide(func() schema.Dialect {
 			return mysqldialect.New()
+		}),
+		fx.Provide(func() goose.Dialect {
+			return goose.DialectMySQL
+		}),
+		fx.Provide(func() goosefx.Storage {
+			return goosefx.Storage(migrations.FS)
 		}),
 	)
 }
