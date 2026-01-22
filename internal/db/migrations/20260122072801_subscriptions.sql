@@ -5,8 +5,8 @@ CREATE TABLE `subscriptions` (
     `uuid` varchar(36) NOT NULL,
     `url` varchar(256) NOT NULL,
     `secret` varchar(256) DEFAULT NULL,
-    `created_at` datetime DEFAULT current_timestamp(),
-    `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+    `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+    `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
     PRIMARY KEY (`id`),
     UNIQUE KEY `uuid` (`uuid`)
 ) ENGINE = InnoDB;

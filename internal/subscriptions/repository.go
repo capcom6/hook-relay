@@ -19,18 +19,24 @@ func newRepository(db *bun.DB) *repository {
 }
 
 // Replace replaces an existing subscription.
-func (r *repository) Replace(ctx context.Context, subscription *subscriptionModel) error {
+func (r *repository) Replace(ctx context.Context, subscription SubscriptionIn) (*Subscription, error) {
+	model := newSubscriptionModel(subscription)
+
 	err := r.db.RunInTx(ctx, nil, func(ctx context.Context, tx bun.Tx) error {
-		_, err := tx.NewInsert().Replace().Model(subscription).Exec(ctx)
+		_, err := tx.NewInsert().Replace().Model(model).Returning("*").Exec(ctx)
 		if err != nil {
 			return err //nolint:wrapcheck //wrapped outside
 		}
 
 		events := lo.Map(
 			subscription.Events,
-			func(item eventModel, _ int) eventModel {
-				item.SubscriptionID = subscription.ID
-				return item
+			func(item string, _ int) eventModel {
+				return eventModel{
+					BaseModel:      bun.BaseModel{},
+					ID:             0,
+					SubscriptionID: model.ID,
+					Event:          item,
+				}
 			},
 		)
 
@@ -43,14 +49,14 @@ func (r *repository) Replace(ctx context.Context, subscription *subscriptionMode
 	})
 
 	if err != nil {
-		return fmt.Errorf("failed to replace subscription: %w", err)
+		return nil, fmt.Errorf("failed to replace subscription: %w", err)
 	}
 
-	return nil
+	return model.toDomain(), nil
 }
 
 // SelectByUUID retrieves a subscription by its UUID.
-func (r *repository) SelectByUUID(ctx context.Context, uuid ...string) ([]subscriptionModel, error) {
+func (r *repository) SelectByUUID(ctx context.Context, uuid ...string) ([]Subscription, error) {
 	if len(uuid) == 0 {
 		return nil, nil
 	}
@@ -71,7 +77,7 @@ func (r *repository) SelectByUUID(ctx context.Context, uuid ...string) ([]subscr
 	if err != nil {
 		return nil, fmt.Errorf("failed to get subscriptions: %w", err)
 	}
-	return subscriptions, nil
+	return lo.Map(subscriptions, func(item subscriptionModel, _ int) Subscription { return *item.toDomain() }), nil
 }
 
 // DeleteByUUID deletes a subscription.

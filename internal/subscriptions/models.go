@@ -34,6 +34,20 @@ func newSubscriptionModel(subscription SubscriptionIn) *subscriptionModel {
 	}
 }
 
+func (s *subscriptionModel) toDomain() *Subscription {
+	if s == nil {
+		return nil
+	}
+
+	return &Subscription{
+		UUID:      s.UUID,
+		URL:       s.URL,
+		Events:    lo.Map(s.Events, func(item eventModel, _ int) string { return item.Event }),
+		CreatedAt: s.CreatedAt,
+		UpdatedAt: s.UpdatedAt,
+	}
+}
+
 // eventModel represents a webhook event in the database.
 type eventModel struct {
 	bun.BaseModel `bun:"table:subscription_events"`
