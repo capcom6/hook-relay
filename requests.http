@@ -16,11 +16,11 @@ Content-Type: application/json
 }
 
 ###
-@subscriptionID={{subscriptionCreate.response.body.$.uuid}}
-GET {{baseUrl}}/subscriptions?uuid={{subscriptionID}} HTTP/1.1
+@subscriptionUUID={{subscriptionCreate.response.body.$.uuid}}
+GET {{baseUrl}}/subscriptions?uuid={{subscriptionUUID}} HTTP/1.1
 
 ###
-GET {{baseUrl}}/subscriptions/{{subscriptionID}} HTTP/1.1
+GET {{baseUrl}}/subscriptions/{{subscriptionUUID}} HTTP/1.1
 
 ###
-DELETE {{baseUrl}}/subscriptions/{{subscriptionID}} HTTP/1.1
+DELETE {{baseUrl}}/subscriptions/{{subscriptionUUID}} HTTP/1.1
