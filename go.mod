@@ -6,11 +6,13 @@ require (
 	github.com/go-core-fx/bunfx v0.0.0-20251031040508-389b5f369517
 	github.com/go-core-fx/config v0.0.0-20251031132330-11530b4fe00f
 	github.com/go-core-fx/fiberfx v0.0.0-20251029093854-b15b9343f207
+	github.com/go-core-fx/goosefx v0.0.1
 	github.com/go-core-fx/logger v0.0.1
 	github.com/go-core-fx/sqlfx v0.0.0-20251029094726-6d45ff8e7ac3
 	github.com/go-core-fx/validator v0.0.0-20251027105711-abf1d955722d
 	github.com/go-sql-driver/mysql v1.9.3
 	github.com/gofiber/fiber/v2 v2.52.9
+	github.com/pressly/goose/v3 v3.26.0
 	github.com/samber/lo v1.52.0
 	github.com/uptrace/bun v1.2.15
 	github.com/uptrace/bun/dialect/mysqldialect v1.2.15
@@ -45,9 +47,11 @@ require (
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-runewidth v0.0.19 // indirect
+	github.com/mfridman/interpolate v0.0.2 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
 	github.com/puzpuzpuz/xsync/v3 v3.5.1 // indirect
+	github.com/sethvargo/go-retry v0.3.0 // indirect
 	github.com/tmthrgd/go-hex v0.0.0-20190904060850-447a3041c3bc // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.68.0 // indirect
@@ -58,6 +62,7 @@ require (
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/crypto v0.43.0 // indirect
 	golang.org/x/mod v0.28.0 // indirect
+	golang.org/x/sync v0.17.0 // indirect
 	golang.org/x/sys v0.37.0 // indirect
 	golang.org/x/text v0.30.0 // indirect
 )
