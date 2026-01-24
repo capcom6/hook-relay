@@ -2,7 +2,6 @@ package config
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/capcom6/hook-relay/internal/server"
 	"github.com/go-core-fx/config"
@@ -32,8 +31,8 @@ func Module() fx.Option {
 		fx.Provide(func(c Config) sqlfx.Config {
 			return sqlfx.Config{
 				URL:             c.Database.URL,
-				ConnMaxIdleTime: time.Duration(c.Database.ConnMaxIdleTime),
-				ConnMaxLifetime: time.Duration(c.Database.ConnMaxLifetime),
+				ConnMaxIdleTime: c.Database.ConnMaxIdleTime,
+				ConnMaxLifetime: c.Database.ConnMaxLifetime,
 				MaxOpenConns:    c.Database.MaxOpenConns,
 				MaxIdleConns:    c.Database.MaxIdleConns,
 			}

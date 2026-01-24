@@ -1,6 +1,6 @@
 package config
 
-import "github.com/go-core-fx/config"
+import "time"
 
 type Config struct {
 	Server   Server   `koanf:"server"`
@@ -16,10 +16,10 @@ type Server struct {
 type Database struct {
 	URL string `koanf:"url"`
 
-	ConnMaxIdleTime config.Duration `koanf:"conn_max_idle_time"`
-	ConnMaxLifetime config.Duration `koanf:"conn_max_lifetime"`
-	MaxOpenConns    int             `koanf:"max_open_conns"`
-	MaxIdleConns    int             `koanf:"max_idle_conns"`
+	ConnMaxIdleTime time.Duration `koanf:"conn_max_idle_time"`
+	ConnMaxLifetime time.Duration `koanf:"conn_max_lifetime"`
+	MaxOpenConns    int           `koanf:"max_open_conns"`
+	MaxIdleConns    int           `koanf:"max_idle_conns"`
 }
 
 func Default() Config {
