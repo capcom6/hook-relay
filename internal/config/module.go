@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 
+	"github.com/capcom6/hook-relay/internal/events"
 	"github.com/capcom6/hook-relay/internal/server"
 	"github.com/go-core-fx/config"
 	"github.com/go-core-fx/sqlfx"
@@ -21,13 +22,6 @@ func Module() fx.Option {
 
 			return c, nil
 		}, fx.Private),
-		fx.Provide(func(c Config) server.Config {
-			return server.Config{
-				Address:     c.Server.Address,
-				ProxyHeader: c.Server.ProxyHeader,
-				Proxies:     c.Server.Proxies,
-			}
-		}),
 		fx.Provide(func(c Config) sqlfx.Config {
 			return sqlfx.Config{
 				URL:             c.Database.URL,
@@ -37,5 +31,20 @@ func Module() fx.Option {
 				MaxIdleConns:    c.Database.MaxIdleConns,
 			}
 		}),
+
+		fx.Provide(
+			func(c Config) server.Config {
+				return server.Config{
+					Address:     c.Server.Address,
+					ProxyHeader: c.Server.ProxyHeader,
+					Proxies:     c.Server.Proxies,
+				}
+			},
+			func(c Config) events.Config {
+				return events.Config{
+					Timeout: c.Events.Timeout,
+				}
+			},
+		),
 	)
 }

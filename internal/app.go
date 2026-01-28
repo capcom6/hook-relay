@@ -5,6 +5,7 @@ import (
 
 	"github.com/capcom6/hook-relay/internal/config"
 	"github.com/capcom6/hook-relay/internal/db"
+	"github.com/capcom6/hook-relay/internal/events"
 	"github.com/capcom6/hook-relay/internal/server"
 	"github.com/capcom6/hook-relay/internal/subscriptions"
 	"github.com/go-core-fx/bunfx"
@@ -32,6 +33,7 @@ func Run() {
 		config.Module(),
 		server.Module(),
 		db.Module(),
+		events.Module(),
 		//
 		// BUSINESS MODULES
 		subscriptions.Module(),
