@@ -5,6 +5,7 @@ import "time"
 type Config struct {
 	Server   Server   `koanf:"server"`
 	Database Database `koanf:"database"`
+	Events   Events   `koanf:"events"`
 }
 
 type Server struct {
@@ -22,6 +23,10 @@ type Database struct {
 	MaxIdleConns    int           `koanf:"max_idle_conns"`
 }
 
+type Events struct {
+	Timeout time.Duration `koanf:"timeout"`
+}
+
 func Default() Config {
 	return Config{
 		Server: Server{
@@ -35,6 +40,9 @@ func Default() Config {
 			ConnMaxLifetime: 0,
 			MaxOpenConns:    0,
 			MaxIdleConns:    0,
+		},
+		Events: Events{
+			Timeout: time.Second,
 		},
 	}
 }

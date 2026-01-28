@@ -21,7 +21,7 @@ type Handler struct {
 func NewHandler(
 	subscriptionsSvc *subscriptions.Service,
 	validator *validator.Validator,
-) *Handler {
+) handler.Handler {
 	return &Handler{
 		Base: handler.Base{
 			Validator: validator,
@@ -32,12 +32,14 @@ func NewHandler(
 }
 
 func (h *Handler) Register(router fiber.Router) {
+	router = router.Group("subscriptions")
+
 	router.Use(h.errorsHandler)
 
-	router.Post("/", h.post)
-	router.Get("/", h.list)
-	router.Get("/:uuid", h.get)
-	router.Delete("/:uuid", h.delete)
+	router.Post("", h.post)
+	router.Get("", h.list)
+	router.Get(":uuid", h.get)
+	router.Delete(":uuid", h.delete)
 }
 
 func (h *Handler) post(c *fiber.Ctx) error {
