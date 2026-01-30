@@ -6,6 +6,7 @@ type Config struct {
 	Server   Server   `koanf:"server"`
 	Database Database `koanf:"database"`
 	Events   Events   `koanf:"events"`
+	Delivery Delivery `koanf:"delivery"`
 }
 
 type Server struct {
@@ -27,6 +28,11 @@ type Events struct {
 	Timeout time.Duration `koanf:"timeout"`
 }
 
+type Delivery struct {
+	Timeout   time.Duration `koanf:"timeout"`
+	UserAgent string        `koanf:"user_agent"`
+}
+
 func Default() Config {
 	return Config{
 		Server: Server{
@@ -43,6 +49,10 @@ func Default() Config {
 		},
 		Events: Events{
 			Timeout: time.Second,
+		},
+		Delivery: Delivery{
+			Timeout:   time.Second,
+			UserAgent: "hook-relay",
 		},
 	}
 }

@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 
+	"github.com/capcom6/hook-relay/internal/delivery"
 	"github.com/capcom6/hook-relay/internal/events"
 	"github.com/capcom6/hook-relay/internal/server"
 	"github.com/go-core-fx/config"
@@ -43,6 +44,12 @@ func Module() fx.Option {
 			func(c Config) events.Config {
 				return events.Config{
 					Timeout: c.Events.Timeout,
+				}
+			},
+			func(c Config) delivery.Config {
+				return delivery.Config{
+					Timeout:   c.Delivery.Timeout,
+					UserAgent: c.Delivery.UserAgent,
 				}
 			},
 		),

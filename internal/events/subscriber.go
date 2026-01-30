@@ -62,6 +62,7 @@ func (s *Subscriber) Subscribe(ctx context.Context) (<-chan *EventWrapper, error
 			}
 
 			out <- &EventWrapper{
+				ID:    msg.UUID,
 				Event: event,
 				Ack:   msg.Ack,
 				Nack:  msg.Nack,

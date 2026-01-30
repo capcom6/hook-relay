@@ -42,6 +42,7 @@ func (s *subscriptionModel) toDomain() *Subscription {
 	return &Subscription{
 		UUID:      s.UUID,
 		URL:       s.URL,
+		Secret:    s.Secret,
 		Events:    lo.Map(s.Events, func(item eventModel, _ int) string { return item.Event }),
 		CreatedAt: s.CreatedAt,
 		UpdatedAt: s.UpdatedAt,

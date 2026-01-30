@@ -11,7 +11,7 @@ Content-Type: application/json
 
 {
     "uuid": "{{$guid}}",
-    "url": "https://example.com/{{$randomInt 0 100}}",
+    "url": "https://wh3022edc5a237bc2ee5.free.beeceptor.com/{{$randomInt 0 100}}",
     "secret": "{{$randomString 32}}",
     "events": ["invoice.created"]
 }

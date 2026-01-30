@@ -80,6 +80,21 @@ func (r *repository) SelectByUUID(ctx context.Context, uuid ...string) ([]Subscr
 	return lo.Map(subscriptions, func(item subscriptionModel, _ int) Subscription { return *item.toDomain() }), nil
 }
 
+func (r *repository) SelectByEvent(ctx context.Context, event string) ([]Subscription, error) {
+	subscriptions := []subscriptionModel{}
+	err := r.db.NewSelect().
+		Model(&subscriptions).
+		Where("id IN (?)", r.db.NewSelect().
+			Model((*eventModel)(nil)).
+			Column("subscription_id").
+			Where("event = ?", event)).
+		Scan(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get subscriptions: %w", err)
+	}
+	return lo.Map(subscriptions, func(item subscriptionModel, _ int) Subscription { return *item.toDomain() }), nil
+}
+
 // DeleteByUUID deletes a subscription.
 func (r *repository) DeleteByUUID(ctx context.Context, uuid string) error {
 	_, err := r.db.NewDelete().
