@@ -12,6 +12,7 @@ type SubscriptionIn struct {
 type Subscription struct {
 	UUID      string
 	URL       string
+	Secret    string
 	Events    []string
 	CreatedAt time.Time
 	UpdatedAt time.Time

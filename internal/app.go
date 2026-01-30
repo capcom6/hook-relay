@@ -5,6 +5,7 @@ import (
 
 	"github.com/capcom6/hook-relay/internal/config"
 	"github.com/capcom6/hook-relay/internal/db"
+	"github.com/capcom6/hook-relay/internal/delivery"
 	"github.com/capcom6/hook-relay/internal/events"
 	"github.com/capcom6/hook-relay/internal/server"
 	"github.com/capcom6/hook-relay/internal/subscriptions"
@@ -37,6 +38,7 @@ func Run() {
 		//
 		// BUSINESS MODULES
 		subscriptions.Module(),
+		delivery.Module(),
 		//
 		fx.Invoke(func(lc fx.Lifecycle, logger *zap.Logger) {
 			lc.Append(fx.Hook{

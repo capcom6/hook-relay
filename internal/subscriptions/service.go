@@ -37,6 +37,10 @@ func (s *Service) SelectByUUID(ctx context.Context, uuid ...string) ([]Subscript
 	return items, nil
 }
 
+func (s *Service) SelectByEvent(ctx context.Context, event string) ([]Subscription, error) {
+	return s.subscriptions.SelectByEvent(ctx, event)
+}
+
 func (s *Service) GetByUUID(ctx context.Context, uuid string) (*Subscription, error) {
 	subscriptions, err := s.SelectByUUID(ctx, uuid)
 	if err != nil {

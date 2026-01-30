@@ -21,7 +21,7 @@ func NewPublisher(sql *sql.DB, logger *zap.Logger) (*Publisher, error) {
 		wmsql.BeginnerFromStdSQL(sql),
 		wmsql.PublisherConfig{
 			SchemaAdapter:        wmsql.MySQLQueueSchema{},
-			AutoInitializeSchema: true,
+			AutoInitializeSchema: false,
 		},
 		watermillfx.NewLogger(logger),
 	)

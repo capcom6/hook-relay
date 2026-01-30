@@ -5,26 +5,28 @@ go 1.24.3
 require (
 	github.com/ThreeDotsLabs/watermill v1.5.1
 	github.com/ThreeDotsLabs/watermill-sql/v4 v4.1.2
-	github.com/go-core-fx/bunfx v0.0.0-20251031040508-389b5f369517
+	github.com/capcom6/go-restkit v0.0.0-20251020125230-7d9476f7101a
+	github.com/go-core-fx/bunfx v0.0.1
 	github.com/go-core-fx/config v0.0.0-20251031132330-11530b4fe00f
 	github.com/go-core-fx/fiberfx v0.5.0
 	github.com/go-core-fx/goosefx v0.0.1
 	github.com/go-core-fx/logger v0.0.1
-	github.com/go-core-fx/sqlfx v0.0.0-20251029094726-6d45ff8e7ac3
+	github.com/go-core-fx/sqlfx v0.1.0
 	github.com/go-core-fx/validator v0.0.0-20251027105711-abf1d955722d
 	github.com/go-sql-driver/mysql v1.9.3
 	github.com/gofiber/fiber/v2 v2.52.9
 	github.com/pressly/goose/v3 v3.26.0
 	github.com/samber/lo v1.52.0
 	github.com/stretchr/testify v1.11.1
-	github.com/uptrace/bun v1.2.15
-	github.com/uptrace/bun/dialect/mysqldialect v1.2.15
+	github.com/uptrace/bun v1.2.16
+	github.com/uptrace/bun/dialect/mysqldialect v1.2.16
 	go.uber.org/fx v1.24.0
 	go.uber.org/zap v1.27.1
 )
 
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
+	github.com/alexlast/bunzap v0.1.0 // indirect
 	github.com/andybalholm/brotli v1.2.0 // indirect
 	github.com/ansrivas/fiberprometheus/v2 v2.14.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
@@ -86,7 +88,7 @@ require (
 	go.yaml.in/yaml/v2 v2.4.2 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/crypto v0.43.0 // indirect
-	golang.org/x/mod v0.28.0 // indirect
+	golang.org/x/mod v0.32.0 // indirect
 	golang.org/x/sync v0.17.0 // indirect
 	golang.org/x/sys v0.40.0 // indirect
 	golang.org/x/text v0.30.0 // indirect

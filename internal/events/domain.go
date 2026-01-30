@@ -34,6 +34,7 @@ func (e *Event) Unmarshal(data []byte) error {
 }
 
 type EventWrapper struct {
+	ID    string
 	Event Event
 	Ack   func() bool
 	Nack  func() bool
