@@ -84,6 +84,7 @@ func (r *repository) SelectByEvent(ctx context.Context, event string) ([]Subscri
 	subscriptions := []subscriptionModel{}
 	err := r.db.NewSelect().
 		Model(&subscriptions).
+		Relation("Events").
 		Where("id IN (?)", r.db.NewSelect().
 			Model((*eventModel)(nil)).
 			Column("subscription_id").
