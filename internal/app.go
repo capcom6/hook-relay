@@ -12,6 +12,7 @@ import (
 	"github.com/go-core-fx/bunfx"
 	"github.com/go-core-fx/fiberfx"
 	"github.com/go-core-fx/goosefx"
+	"github.com/go-core-fx/healthfx"
 	"github.com/go-core-fx/logger"
 	"github.com/go-core-fx/sqlfx"
 	"github.com/go-core-fx/validator"
@@ -19,7 +20,7 @@ import (
 	"go.uber.org/zap"
 )
 
-func Run() {
+func Run(version healthfx.Version) {
 	fx.New(
 		// CORE MODULES
 		logger.Module(),
@@ -29,6 +30,7 @@ func Run() {
 		bunfx.Module(),
 		fiberfx.Module(),
 		validator.Module(),
+		healthfx.Module(),
 		//
 		// APP MODULES
 		config.Module(),
@@ -37,6 +39,7 @@ func Run() {
 		events.Module(),
 		//
 		// BUSINESS MODULES
+		fx.Supply(version),
 		subscriptions.Module(),
 		delivery.Module(),
 		//

@@ -14,7 +14,7 @@ type subscriptionModel struct {
 	ID        int64     `bun:"id,pk,nullzero"`
 	UUID      string    `bun:"uuid"`
 	URL       string    `bun:"url"`
-	Secret    string    `bun:"secret,nullzero"`
+	Secret    string    `bun:"secret,nullzero"     json:"-"`
 	CreatedAt time.Time `bun:"created_at,nullzero"`
 	UpdatedAt time.Time `bun:"updated_at,nullzero"`
 

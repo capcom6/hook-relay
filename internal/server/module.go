@@ -3,43 +3,47 @@ package server
 import (
 	"github.com/capcom6/hook-relay/internal/server/api/events"
 	"github.com/capcom6/hook-relay/internal/server/api/subscriptions"
+	"github.com/capcom6/hook-relay/internal/server/docs"
 	"github.com/go-core-fx/fiberfx"
 	"github.com/go-core-fx/fiberfx/handler"
+	"github.com/go-core-fx/fiberfx/health"
+	"github.com/go-core-fx/fiberfx/openapi"
 	"github.com/go-core-fx/fiberfx/statuscode"
 	"github.com/go-core-fx/fiberfx/validation"
 	"github.com/go-core-fx/logger"
 	"github.com/gofiber/fiber/v2"
 	"go.uber.org/fx"
+	"go.uber.org/zap"
 )
 
 func Module() fx.Option {
 	return fx.Module(
 		"server",
 		logger.WithNamedLogger("server"),
-		fx.Provide(func(c Config) fiberfx.Config {
-			return fiberfx.Config{
-				Address:     c.Address,
-				ProxyHeader: c.ProxyHeader,
-				Proxies:     c.Proxies,
-			}
+		fx.Provide(func(log *zap.Logger) fiberfx.Options {
+			opts := fiberfx.Options{}
+			opts.WithErrorHandler(fiberfx.NewJSONErrorHandler(log))
+			opts.WithMetrics()
+			return opts
 		}),
-		fx.Provide(func() fiberfx.Options {
-			return fiberfx.Options{}
-		}),
+		fx.Supply(docs.SwaggerInfo),
+
 		fx.Provide(
-			fx.Annotate(subscriptions.NewHandler, fx.ResultTags(`group:"handlers"`)), fx.Private,
-			fx.Annotate(events.NewHandler, fx.ResultTags(`group:"handlers"`)), fx.Private,
+			health.NewHandler, openapi.NewHandler,
+			fx.Annotate(subscriptions.NewHandler, fx.ResultTags(`group:"handlers"`)),
+			fx.Annotate(events.NewHandler, fx.ResultTags(`group:"handlers"`)),
+			fx.Private,
 		),
 
 		fx.Invoke(
 			fx.Annotate(
-				func(handlers []handler.Handler, app *fiber.App) {
+				func(handlers []handler.Handler, openapiHandler *openapi.Handler, healthHandler *health.Handler, app *fiber.App) {
 					// Health endpoint
-					// healthHandler.Register(app)
+					healthHandler.Register(app)
 
 					// Version 1 API group
 					v1 := app.Group("api/v1")
-					// openapiHandler.Register(v1.Group("/docs"))
+					openapiHandler.Register(v1.Group("/docs"))
 
 					v1.Use(validation.Middleware)
 
