@@ -1,0 +1,20 @@
+@baseUrl=http://127.0.0.1:3000
+@apiUrl={{baseUrl}}/api/v1
+
+###
+GET {{baseUrl}}/health HTTP/1.1
+
+###
+GET {{baseUrl}}/health/startup HTTP/1.1
+
+###
+GET {{baseUrl}}/health/ready HTTP/1.1
+
+###
+GET {{baseUrl}}/health/live HTTP/1.1
+
+###
+GET {{baseUrl}}/metrics HTTP/1.1
+
+###
+GET {{apiUrl}}/docs HTTP/1.1

@@ -1,4 +1,4 @@
-.PHONY: all version fmt lint test coverage benchmark air deps release clean build help
+.PHONY: all version fmt lint test coverage benchmark air deps gen release clean build help
 
 BINARY_NAME := $(shell basename $(PWD))
 GIT_VERSION := $(shell git describe --tags --abbrev=0 2>/dev/null || echo "0.0.0")
@@ -37,6 +37,9 @@ air: ## Run development server
 
 deps: ## Install dependencies
 	go mod download
+
+gen: ## Generate code
+	go generate ./...
 
 release: ## Create release
 	goreleaser release --snapshot --clean

@@ -5,8 +5,9 @@ import (
 
 	"github.com/capcom6/hook-relay/internal/delivery"
 	"github.com/capcom6/hook-relay/internal/events"
-	"github.com/capcom6/hook-relay/internal/server"
 	"github.com/go-core-fx/config"
+	"github.com/go-core-fx/fiberfx"
+	"github.com/go-core-fx/fiberfx/openapi"
 	"github.com/go-core-fx/sqlfx"
 	"go.uber.org/fx"
 )
@@ -23,24 +24,33 @@ func Module() fx.Option {
 
 			return c, nil
 		}, fx.Private),
-		fx.Provide(func(c Config) sqlfx.Config {
-			return sqlfx.Config{
-				URL:             c.Database.URL,
-				ConnMaxIdleTime: c.Database.ConnMaxIdleTime,
-				ConnMaxLifetime: c.Database.ConnMaxLifetime,
-				MaxOpenConns:    c.Database.MaxOpenConns,
-				MaxIdleConns:    c.Database.MaxIdleConns,
-			}
-		}),
-
 		fx.Provide(
-			func(c Config) server.Config {
-				return server.Config{
-					Address:     c.Server.Address,
-					ProxyHeader: c.Server.ProxyHeader,
-					Proxies:     c.Server.Proxies,
+			func(cfg Config) fiberfx.Config {
+				return fiberfx.Config{
+					Address:     cfg.HTTP.Address,
+					ProxyHeader: cfg.HTTP.ProxyHeader,
+					Proxies:     cfg.HTTP.Proxies,
 				}
 			},
+			func(cfg Config) openapi.Config {
+				return openapi.Config{
+					Enabled:    cfg.HTTP.OpenAPI.Enabled,
+					PublicHost: cfg.HTTP.OpenAPI.PublicHost,
+					PublicPath: cfg.HTTP.OpenAPI.PublicPath,
+				}
+			},
+			func(c Config) sqlfx.Config {
+				return sqlfx.Config{
+					URL:             c.Database.URL,
+					ConnMaxIdleTime: c.Database.ConnMaxIdleTime,
+					ConnMaxLifetime: c.Database.ConnMaxLifetime,
+					MaxOpenConns:    c.Database.MaxOpenConns,
+					MaxIdleConns:    c.Database.MaxIdleConns,
+				}
+			},
+		),
+
+		fx.Provide(
 			func(c Config) events.Config {
 				return events.Config{
 					Timeout: c.Events.Timeout,

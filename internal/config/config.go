@@ -3,16 +3,24 @@ package config
 import "time"
 
 type Config struct {
-	Server   Server   `koanf:"server"`
+	HTTP     http     `koanf:"http"`
 	Database Database `koanf:"database"`
 	Events   Events   `koanf:"events"`
 	Delivery Delivery `koanf:"delivery"`
 }
 
-type Server struct {
+type http struct {
 	Address     string   `koanf:"address"`
 	ProxyHeader string   `koanf:"proxy_header"`
 	Proxies     []string `koanf:"proxies"`
+
+	OpenAPI openAPIConfig `koanf:"openapi"`
+}
+
+type openAPIConfig struct {
+	Enabled    bool   `koanf:"enabled"`
+	PublicHost string `koanf:"public_host"`
+	PublicPath string `koanf:"public_path"`
 }
 
 type Database struct {
@@ -34,11 +42,17 @@ type Delivery struct {
 }
 
 func Default() Config {
+	//nolint:gosec // default values
 	return Config{
-		Server: Server{
+		HTTP: http{
 			Address:     "127.0.0.1:3000",
 			ProxyHeader: "X-Forwarded-For",
 			Proxies:     []string{},
+			OpenAPI: openAPIConfig{
+				Enabled:    false,
+				PublicHost: "",
+				PublicPath: "",
+			},
 		},
 		Database: Database{
 			URL:             "mysql://hook-relay:hook-relay@127.0.0.1:3306/hook-relay?charset=utf8mb4,utf8&parseTime=true",

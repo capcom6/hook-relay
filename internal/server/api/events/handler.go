@@ -42,6 +42,18 @@ func (h *Handler) Register(router fiber.Router) {
 	router.Post("", h.post)
 }
 
+//	@Summary		Publish an event
+//	@Description	Publishes an event to the event bus for delivery to subscribed webhooks
+//	@Tags			events
+//	@Accept			json
+//	@Produce		json
+//	@Param			request	body	EventRequest	true	"Event data"
+//	@Success		202		"Accepted"
+//	@Failure		400		{object}	fiberfx.ErrorResponse	"Bad Request"
+//	@Failure		500		{object}	fiberfx.ErrorResponse	"Internal Server Error"
+//	@Router			/events [post]
+//
+// Publish an event.
 func (h *Handler) post(c *fiber.Ctx) error {
 	req := new(EventRequest)
 	if err := h.BodyParserValidator(c, req); err != nil {
