@@ -55,7 +55,7 @@ func Default() Config {
 			},
 		},
 		Database: Database{
-			URL:             "mysql://hook-relay:hook-relay@127.0.0.1:3306/hook-relay?charset=utf8mb4,utf8&parseTime=true",
+			URL:             "mysql://hook-relay:hook-relay@127.0.0.1:3306/hook-relay?charset=utf8mb4&parseTime=true",
 			ConnMaxIdleTime: 0,
 			ConnMaxLifetime: 0,
 			MaxOpenConns:    0,
