@@ -11,6 +11,7 @@ import (
 	"github.com/capcom6/go-restkit"
 	"github.com/capcom6/hook-relay/internal/events"
 	"github.com/capcom6/hook-relay/internal/subscriptions"
+	"github.com/go-core-fx/healthfx"
 	"go.uber.org/zap"
 )
 
@@ -28,6 +29,7 @@ type Service struct {
 
 func NewService(
 	config Config,
+	version healthfx.Version,
 	subscriptionsSvc *subscriptions.Service,
 	subscriber *events.Subscriber,
 	logger *zap.Logger,
@@ -39,6 +41,8 @@ func NewService(
 	if err != nil {
 		return nil, fmt.Errorf("failed to create client: %w", err)
 	}
+
+	config.UserAgent = fmt.Sprintf("%s/%s", config.UserAgent, version.Version)
 
 	return &Service{
 		config: config,
