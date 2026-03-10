@@ -113,7 +113,7 @@ const docTemplate = `{
                     }
                 }
             },
-            "post": {
+            "put": {
                 "description": "Creates a new webhook subscription or replaces an existing one with the same UUID",
                 "consumes": [
                     "application/json"

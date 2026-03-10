@@ -36,7 +36,7 @@ func (h *Handler) Register(router fiber.Router) {
 
 	router.Use(h.errorsHandler)
 
-	router.Post("", h.post)
+	router.Put("", h.put)
 	router.Get("", h.list)
 	router.Get(":uuid", h.get)
 	router.Delete(":uuid", h.delete)
@@ -51,10 +51,10 @@ func (h *Handler) Register(router fiber.Router) {
 //	@Success		200		{object}	Subscription
 //	@Failure		400		{object}	fiberfx.ErrorResponse	"Bad Request"
 //	@Failure		500		{object}	fiberfx.ErrorResponse	"Internal Server Error"
-//	@Router			/subscriptions [post]
+//	@Router			/subscriptions [put]
 //
 // Create or replace a subscription.
-func (h *Handler) post(c *fiber.Ctx) error {
+func (h *Handler) put(c *fiber.Ctx) error {
 	req := new(Subscription)
 	if err := h.BodyParserValidator(c, req); err != nil {
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
