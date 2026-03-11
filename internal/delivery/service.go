@@ -139,6 +139,7 @@ func (s *Service) deliverEvent(
 		"Content-Type":        []string{"application/json"},
 		"User-Agent":          []string{s.config.UserAgent},
 		"X-Request-ID":        []string{event.ID},
+		"X-Event-Type":        []string{event.Event.Type},
 		"X-Subscription-UUID": []string{subscription.UUID},
 	}
 
